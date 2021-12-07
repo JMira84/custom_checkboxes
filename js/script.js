@@ -80,25 +80,23 @@ const checkboxChallenge = {
         });
     },
     checkHandler() {
-        let inBetween = this.data.checkboxes.inBetween;
-        let lastChecked = this.data.checkboxes.lastChecked;
-
         this.data.checkboxes.elements.forEach(checkbox => {
             checkbox.addEventListener('click', e => {
                 if (e.shiftKey && checkbox.checked) {
                     this.data.checkboxes.elements.forEach(checkbox => {
                         // change to true when checking first item then to false when checking last item
-                        if (checkbox === e.target || checkbox === lastChecked) {
-                            inBetween = !inBetween;
+                        if (checkbox === e.target || checkbox === this.data.checkboxes.lastChecked) {
+                            this.data.checkboxes.inBetween = !this.data.checkboxes.inBetween;
                         }
 
                         // if inBetween is true check all the boxes in between
-                        if (inBetween) {
+                        if (this.data.checkboxes.inBetween) {
                             checkbox.checked = true;
                         }
                     });
                 }
-                lastChecked = e.target;
+                
+                this.data.checkboxes.lastChecked = e.target;
             });
         });
     }
